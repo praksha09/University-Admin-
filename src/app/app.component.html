@@ -1,0 +1,87 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div id="wrapper">
+  <nav class="navbar navbar-default top-navbar" role="navigation">
+      <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html"><b>In</b>sight</a>
+      </div>
+
+      <ul class="nav navbar-top-links navbar-right">
+          
+          <!-- /.dropdown -->
+          
+              
+              <!-- /.dropdown-alerts -->
+          
+          <!-- /.dropdown -->
+          <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                  <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+              </a>
+              <ul class="dropdown-menu dropdown-user">
+                  <li><a href="#"><i class="fa fa-user fa-fw"></i> Change Password</a>
+                  </li>
+                  <li class="divider"></li>
+                  <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                  </li>
+              </ul>
+              <!-- /.dropdown-user -->
+          </li>
+          <!-- /.dropdown -->
+      </ul>
+  </nav>
+  <!--/. NAV TOP  -->
+  <nav class="navbar-default navbar-side" role="navigation">
+      <div class="sidebar-collapse">
+          <ul class="nav" id="main-menu">
+
+              <li>
+                  <a><i class="fa fa-dashboard"></i> Dashboard</a>
+              </li>
+              <li>
+                    <a routerLink='/university'><i class="fa fa-qrcode"></i>University</a>    
+              </li>
+              <li>
+                  <a routerLink='/cview'><i class="fa fa-bar-chart-o"></i> Course</a>
+              </li>
+              <li>
+                    <a routerLink='/course'><i class="fa fa-bar-chart-o"></i> University-Course</a>
+                </li>
+            <li>
+                    <a routerLink='/sview'><i class="fa fa-bar-chart-o"></i> State</a>
+            </li>
+            <li>
+                    <a routerLink='/cityview'><i class="fa fa-bar-chart-o"></i> City</a>
+            </li>
+            <li>
+                    <a routerLink='/category'><i class="fa fa-bar-chart-o"></i> Category</a>
+            </li>
+            <li>
+                    <a routerLink='/icon'><i class="fa fa-bar-chart-o"></i> Icon</a>
+            </li>
+            <li>
+                <a routerLink='/discussion'><i class="fa fa-comments fa-fw"></i> Discussion</a>
+            </li>                            
+          </ul>
+
+      </div>
+
+  </nav>
+  <!-- /. NAV SIDE  -->
+  <div id="page-wrapper">
+      <div id="page-inner">
+
+
+         <router-outlet></router-outlet> 
+  
+  
+      </div>
+      <!-- /. PAGE INNER  -->
+  </div>
+  <!-- /. PAGE WRAPPER  -->
+</div>

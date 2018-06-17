@@ -1,0 +1,81 @@
+<div class="row">
+        <div class="col-sm-12">
+            <br>
+                <h3 align="center">ADD NEW CATEGORY</h3>
+                <br>
+                  <form [formGroup]="categoryForm" >
+                    <div class="form-group col-sm-4">
+                      <label>Category:</label>
+                      <input type="text" formControlName="category" class="form-control">
+                      <b><div class="text-danger" *ngIf="hasSubmitted || categoryForm.controls.category.invalid && categoryForm.controls.category.touched">Enter Category</div></b>
+                    </div>
+                    <br>
+                    <div class="col-sm-4">
+                    <button *ngIf="categoryForm.controls.cat_id.value!=''" (click)="update()" class="btn btn-warning">Update</button>
+                    <button *ngIf="categoryForm.controls.cat_id.value!=''" (click)="cancel()" class="btn btn-danger">Cancel</button>
+                  
+                    <button *ngIf="categoryForm.controls.cat_id.value==''" (click)="onFormSubmit()" class="btn btn-primary">ADD</button>
+                </div>  
+                </form>
+                </div>
+  <div>
+       <!--    Hover Rows  -->
+      <div class="panel panel-default">
+          <div class="panel-heading">
+              Category Table
+          </div>
+          <div class="panel-body">
+              <div class="table-responsive">
+                  <!-- <table class="table table-hover">
+                      <thead>
+                          <tr>  
+                              <th>ID</th>
+                              <th>Category</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let c of cat">
+                              <td>{{c.cat_id}}</td>
+                              <td>{{c.category}}</td>
+                              <td><a (click)="editItem(c)" class="glyphicon glyphicon-pencil"></a> | <a (click)="removeItem(c.cat_id)" class="glyphicon glyphicon-remove"></a></td>
+                          </tr>
+                          
+                      </tbody>
+                  </table> -->
+
+                  <mat-table #table [dataSource]="dataSource" matSort>
+              
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="cat_id">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Category ID </mat-header-cell>
+                      <mat-cell *matCellDef="let category"> {{category.cat_id}} </mat-cell>
+                    </ng-container>
+                
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="category">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Category </mat-header-cell>
+                      <mat-cell *matCellDef="let category"> {{category.category}} </mat-cell>
+                    </ng-container>
+                
+                    <!-- Symbol Column -->
+                     <ng-container matColumnDef="options">
+                      <mat-header-cell *matHeaderCellDef> Options </mat-header-cell>
+                      <mat-cell *matCellDef="let category"> <a (click)="editItem(category)" class="glyphicon glyphicon-pencil"></a> | <a (click)="removeItem(category.cat_id)" class="glyphicon glyphicon-remove"></a> </mat-cell>
+                      
+                    </ng-container> 
+                
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                  </mat-table>
+                
+                  <mat-paginator #paginator
+                                 [pageSize]="10"
+                                 [pageSizeOptions]="[5, 10, 20]"
+                                 [showFirstLastButtons]="true">
+                  </mat-paginator>
+              </div>
+          </div>
+          </div>
+          </div>
+          
+</div>

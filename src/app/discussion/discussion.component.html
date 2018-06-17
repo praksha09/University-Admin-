@@ -1,0 +1,72 @@
+<div class="row">
+    
+        <div class="col-sm-12">
+                <br>
+                <h3 align="center">DISCUSSION</h3>
+                <br>
+                  <form [formGroup]="typeForm" >
+                    
+                    <div class="form-group col-sm-4" *ngIf="typeForm.controls.type_id.value!=''">
+                      <label>Type ID:</label>
+                      <input type="text" class="form-control" id="course-name" formControlName="type_id">
+                      <b> <div class="text-danger" *ngIf="hasSubmitted || typeForm.controls.type_id.invalid && typeForm.controls.type_id.touched ">Required Field</div></b>
+                    </div>
+                    <div class="form-group col-sm-4">
+                      <label>Discussion Type:</label>
+                      <input type="text" class="form-control" id="duration" formControlName="type" >
+                      <b> <div class="text-danger" *ngIf="hasSubmitted || typeForm.controls.type.invalid && typeForm.controls.type.touched ">Required Field</div></b>
+                    </div>
+                    <br>
+                    <div class="form-group col-sm-4">
+                            <button *ngIf="typeForm.controls.type_id.value!=''" (click)="update()" class="btn btn-warning">Update</button>
+                            <button *ngIf="typeForm.controls.type_id.value!=''" (click)="cancel ()" class="btn btn-danger">Cancel</button>
+                            <button *ngIf="typeForm.controls.type_id.value==''" (click)="onFormSubmit()" class="btn btn-primary">Submit</button>
+                        </div> 
+                    
+                  </form>
+                </div>
+  <div>
+       <!--    Hover Rows  -->
+      <div class="panel panel-default">
+          <div class="panel-heading">
+              Course Table
+          </div>
+          <div class="panel-body">
+              <div class="table-responsive">
+             
+                  <mat-table #table [dataSource]="dataSource" matSort>
+              
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="type_id">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Type ID </mat-header-cell>
+                        <mat-cell *matCellDef="let discussion"> {{discussion.type_id}} </mat-cell>
+                      </ng-container>
+
+                    <ng-container matColumnDef="type">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Type </mat-header-cell>
+                      <mat-cell *matCellDef="let discussion"> {{discussion.type}} </mat-cell>
+                    </ng-container>
+                   
+                    <!-- Symbol Column -->
+                     <ng-container matColumnDef="options">
+                      <mat-header-cell *matHeaderCellDef> Options </mat-header-cell>
+                      <mat-cell *matCellDef="let discussion"> <a (click)="editItem(discussion)" class="glyphicon glyphicon-pencil"></a> | <a (click)="removeItem(course.c_id)" class="glyphicon glyphicon-remove"></a> </mat-cell>
+                      
+                    </ng-container> 
+                
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                  </mat-table>
+                
+                  <mat-paginator #paginator
+                                 [pageSize]="10"
+                                 [pageSizeOptions]="[5, 10, 20]"
+                                 [showFirstLastButtons]="true">
+                  </mat-paginator>
+
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+    

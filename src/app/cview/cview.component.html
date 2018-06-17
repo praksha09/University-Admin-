@@ -1,0 +1,86 @@
+<div class="row">    
+        <div class="col-sm-12">
+                <br>
+                <h3 align="center">REGISTER COURSE</h3>
+                <br>
+                  <form [formGroup]="courseForm" >
+                    
+                    <div class="form-group col-sm-4">
+                      <label>Course Name:</label>
+                      <input type="text" class="form-control" id="course-name" formControlName="c_name">
+                      <b> <div class="text-danger" *ngIf="hasSubmitted || courseForm.controls.c_name.invalid && courseForm.controls.c_name.touched ">Required Field</div></b>
+                    </div>
+                    <div class="form-group col-sm-4">
+                      <label>Course Duration:</label>
+                      <input type="text" class="form-control" id="duration" formControlName="duration" >
+                      <b> <div class="text-danger" *ngIf="hasSubmitted || courseForm.controls.duration.invalid && courseForm.controls.duration.touched ">Required Field</div></b>
+                    </div>
+                    <div class="form-group col-sm-4">
+                      <label>Course Description:</label>
+                      <textarea type="text" class="form-control" id="duration" formControlName="details" ></textarea>
+                      <b> <div class="text-danger" *ngIf="hasSubmitted || courseForm.controls.details.invalid && courseForm.controls.details.touched ">Required Field</div></b>
+                    </div>
+                    <div class="form-group col-sm-4">
+                            <button *ngIf="courseForm.controls.c_id.value!=''" (click)="update()" class="btn btn-warning">Update</button>
+                            <button *ngIf="courseForm.controls.c_id.value!=''" (click)="cancel ()" class="btn btn-danger">Cancel</button>
+                            <button *ngIf="courseForm.controls.c_id.value==''" (click)="onFormSubmit()" class="btn btn-primary">Submit</button>
+                        </div> 
+                    
+                  </form>
+                </div>
+  <div>
+       <!--    Hover Rows  -->
+      <div class="panel panel-default">
+          <div class="panel-heading">
+              Course Table
+          </div>
+          <div class="panel-body">
+              <div class="table-responsive">
+             
+                  <mat-table #table [dataSource]="dataSource" matSort>
+              
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="c_id">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Course ID </mat-header-cell>
+                        <mat-cell *matCellDef="let course"> {{course.c_id}} </mat-cell>
+                      </ng-container>
+
+                    <ng-container matColumnDef="c_name">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Course </mat-header-cell>
+                      <mat-cell *matCellDef="let course"> {{course.c_name}} </mat-cell>
+                    </ng-container>
+                
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="duration">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Duration </mat-header-cell>
+                      <mat-cell *matCellDef="let course"> {{course.duration}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="details">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Details </mat-header-cell>
+                        <mat-cell *matCellDef="let course"> {{course.details}} </mat-cell>
+                      </ng-container>
+                
+                    <!-- Symbol Column -->
+                     <ng-container matColumnDef="options">
+                      <mat-header-cell *matHeaderCellDef> Options </mat-header-cell>
+                      <mat-cell *matCellDef="let course"> <a (click)="editItem(course)" class="glyphicon glyphicon-pencil"></a> | <a (click)="removeItem(course.c_id)" class="glyphicon glyphicon-remove"></a> </mat-cell>
+                      
+                    </ng-container> 
+                
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                  </mat-table>
+                
+                  <mat-paginator #paginator
+                                 [pageSize]="10"
+                                 [pageSizeOptions]="[5, 10, 20]"
+                                 [showFirstLastButtons]="true">
+                  </mat-paginator>
+
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+    

@@ -1,0 +1,130 @@
+<div class="row">
+<div class="col-sm-12">
+  <br>
+  <h2 align="center">REGISTER NEW UNIVERSITY</h2>
+  <br>
+  
+    <form [formGroup]="universityForm" >
+      <div class="row">
+      <div class="form-group col-sm-4">
+        <label>University Name:</label>
+        <input type="text" class="form-control" id="uname" formControlName="u_name">
+        <b><div class="text-danger" *ngIf="universityForm.controls.u_name.invalid && universityForm.controls.u_name.touched">Required Field</div></b>
+      </div>
+      <div class="form-group col-sm-4">
+          <label>Category:</label>
+          <select id="category" class="form-control" formControlName="cat_id">
+            <option *ngFor="let c of catarr" [ngValue]="c.cat_id" >{{c.category}}</option>
+          </select>
+         <b> <div class="text-danger" *ngIf="universityForm.controls.cat_id.invalid && universityForm.controls.cat_id.touched ">Select Category</div></b>
+        </div>
+        
+      <div class="form-group col-sm-4">
+        <label>State:</label>
+        <select id="state" class="form-control" formControlName="s_id" [(ngModel)]="nameId" (change)="selectName()">
+          <option *ngFor="let s of statearr" [ngValue]="s.s_id">{{s.s_name}}</option>
+          </select>
+          <b><div class="text-danger" *ngIf="universityForm.controls.s_id.invalid && universityForm.controls.s_id.touched">Select State</div></b>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-sm-4">
+        <label>City:</label>
+        <select id="city" class="form-control" formControlName="city">
+          <option *ngFor="let c of cityarr" [value]="c.city" [selected]="c.city">{{c.city}}</option>
+          </select>
+          <b><div class="text-danger" *ngIf="universityForm.controls.city.invalid && universityForm.controls.city.touched">Select city</div></b>
+        </div>
+        <div class="form-group col-sm-4">
+          <label>Rating:</label>
+          <input type="textarea" class="form-control" id="des" formControlName="rating">
+        <b><div class="text-danger" *ngIf="universityForm.controls.rating.invalid && universityForm.controls.rating.touched">Required Field</div></b>
+      </div>
+      <div class="form-group col-sm-4">
+        <label>Location:</label>
+        <input type="text" class="form-control" id="loc" formControlName="location">
+      <b><div class="text-danger" *ngIf="universityForm.controls.location.invalid && universityForm.controls.location.touched">Required Field</div></b>
+    </div>
+  </div>
+  <div class="row">
+      <div class="form-group col-sm-4">
+        <label>Email</label>
+        <input type="text" class="form-control" id="email" formControlName="email">
+      <b><div class="text-danger" *ngIf="universityForm.controls.email.invalid && universityForm.controls.email.touched">Invalid email</div></b>
+    </div>
+    <br>
+    <div class="col-sm-4">
+        <button *ngIf="universityForm.controls.u_id.value!=''" (click)="update()" class="btn btn-warning">Update</button>
+        <button *ngIf="universityForm.controls.u_id.value!=''" (click)="cancel()" class="btn btn-danger">Cancel</button>
+      
+        <button *ngIf="universityForm.controls.u_id.value==''" (click)="onFormSubmit()" class="btn btn-primary">ADD</button>
+    </div>  
+  </div> 
+      
+    </form>
+  </div>
+  <div class="panel panel-default">
+    <h3 align="center">Universities</h3>
+     <div class="panel-body">
+
+        <mat-table #table [dataSource]="dataSource" matSort>
+          
+          <!-- Position Column -->
+          <ng-container matColumnDef="u_name">
+            <mat-header-cell *matHeaderCellDef> University </mat-header-cell>
+            <mat-cell *matCellDef="let University"> {{University.u_name}} </mat-cell>
+          </ng-container>
+      
+          <!-- Name Column -->
+          <ng-container matColumnDef="s_id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> State </mat-header-cell>
+            <mat-cell *matCellDef="let University"> {{University.s_name}} </mat-cell>
+          </ng-container>
+      
+          <!-- Weight Column -->
+          <ng-container matColumnDef="city">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> City </mat-header-cell>
+            <mat-cell *matCellDef="let University"> {{University.city}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="cat_id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Category </mat-header-cell>
+            <mat-cell *matCellDef="let University"> {{University.category}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="location">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Location </mat-header-cell>
+            <mat-cell *matCellDef="let University"> {{University.location}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="email">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+            <mat-cell *matCellDef="let University"> {{University.email}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="rating">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Ratings </mat-header-cell>
+            <mat-cell *matCellDef="let University"> {{University.rating}} </mat-cell>
+          </ng-container>
+      
+          <!-- Symbol Column -->
+           <ng-container matColumnDef="options">
+            <mat-header-cell *matHeaderCellDef> Options </mat-header-cell>
+            <mat-cell *matCellDef="let University"> <a (click)="editItem(University)" class="glyphicon glyphicon-pencil"></a> | <a (click)="removeItem(University)" class="glyphicon glyphicon-remove"></a> </mat-cell>
+            
+          </ng-container> 
+      
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+      
+        <mat-paginator #paginator
+                       [pageSize]="10"
+                       [pageSizeOptions]="[5, 10, 20]"
+                       [showFirstLastButtons]="true">
+        </mat-paginator>
+   </div>
+  </div>
+</div>
+   
+ 

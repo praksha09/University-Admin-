@@ -1,0 +1,94 @@
+<div class="row">
+        <div class="col-sm-12">
+            <br>
+                <h3 align="center">ADD NEW IMAGE</h3>
+                <br>
+                  <form [formGroup]="iconForm" >
+                    <div class="form-group col-sm-4">
+                     <label>University ID:</label>
+                    <input type="text" formControlName="u_id" class="form-control">
+                    <b><div class="text-danger" *ngIf="hasSubmitted || iconForm.controls.u_id.invalid && iconForm.controls.u_id.touched">Required Field</div></b>
+                    </div>
+                    <div class="form-group col-sm-4">
+                      <label>Image:</label>
+                      <input type="text" formControlName="icon" class="form-control">
+                      <b><div class="text-danger" *ngIf="hasSubmitted || iconForm.controls.icon.invalid && iconForm.controls.icon.touched">Required Field</div></b>
+                    </div>
+                    <br>
+                    <div class="form-group col-sm-4">
+                    <button *ngIf="iconForm.controls.id.value!=''" (click)="update()" class="btn btn-warning">Update</button>
+                    <button *ngIf="iconForm.controls.id.value!=''" (click)="cancel()" class="btn btn-danger">Cancel</button>
+                  
+                    <button *ngIf="iconForm.controls.id.value==''" (click)="onFormSubmit()"class="btn btn-primary">ADD</button>
+                </div> 
+                </form>
+                </div>
+  <div>
+       <!--    Hover Rows  -->
+      <div class="panel panel-default">
+          <div class="panel-heading">
+              Icon Table
+          </div>
+          <div class="panel-body">
+              <div class="table-responsive">
+                  <!-- <table class="table table-hover">
+                      <thead>
+                          <tr>
+                              <th>ID</th>
+                              <th>University ID</th>
+                              <th>Image</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let i of image">
+                              <td>{{i.id}}</td>
+                              <td>{{i.u_id}}</td>
+                              <td>{{i.icon}}</td>
+                              <td><a (click)="editItem(i)"  class="glyphicon glyphicon-pencil"></a> | <a (click)="removeItem(i.id)"  class="glyphicon glyphicon-remove"></a></td>
+                          </tr>
+                          
+                      </tbody>
+                  </table> -->
+
+                  <mat-table #table [dataSource]="dataSource" matSort>
+              
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="id">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+                      <mat-cell *matCellDef="let icon"> {{icon.id}} </mat-cell>
+                    </ng-container>
+                
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="u_id">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> University ID </mat-header-cell>
+                      <mat-cell *matCellDef="let icon"> {{icon.u_id}} </mat-cell>
+                    </ng-container>
+                
+
+                    <ng-container matColumnDef="icon">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Icon </mat-header-cell>
+                        <mat-cell *matCellDef="let icon"> {{icon.icon}} </mat-cell>
+                      </ng-container>
+                      
+                    <!-- Symbol Column -->
+                     <ng-container matColumnDef="options">
+                      <mat-header-cell *matHeaderCellDef> Options </mat-header-cell>
+                      <mat-cell *matCellDef="let category"> <a (click)="editItem(category)" class="glyphicon glyphicon-pencil"></a> | <a (click)="removeItem(category.cat_id)" class="glyphicon glyphicon-remove"></a> </mat-cell>
+                      
+                    </ng-container> 
+                
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                  </mat-table>
+                
+                  <mat-paginator #paginator
+                                 [pageSize]="10"
+                                 [pageSizeOptions]="[5, 10, 20]"
+                                 [showFirstLastButtons]="true">
+                  </mat-paginator>
+              </div>
+          </div>
+      </div>
+      </div>
+      
+</div>
